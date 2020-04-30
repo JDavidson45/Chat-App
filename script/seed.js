@@ -1,21 +1,33 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Channel, Message, UserChannels} = require('../server/db/models')
+const {
+  User,
+  Channel,
+  Message,
+  UserChannels,
+  Friends
+} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({name: 'Cody', email: 'cody@email.com', password: '123'}),
+    User.create({name: 'Murphy', email: 'murphy@email.com', password: '123'}),
+    User.create({
+      name: 'Bartholomew',
+      email: 'bartholomew@email.com',
+      password: '123'
+    }),
+    User.create({name: 'Bob', email: 'bob@email.com', password: '123'})
   ])
   const channel = await Promise.all([
     Channel.create({
       name: 'Introverts',
       image:
-        'https://cdn.vox-cdn.com/thumbor/2q97YCXcLOlkoR2jKKEMQ-wkG9k=/0x0:900x500/1200x800/filters:focal(378x178:522x322)/cdn.vox-cdn.com/uploads/chorus_image/image/49493993/this-is-fine.0.jpg',
+        'https://meme-creator.com/media/images/template-ah-yes-enslaved.JPEG',
       description: 'This quarantine is giving me a reason to stay home'
     }),
     Channel.create({
@@ -45,6 +57,24 @@ async function seed() {
     UserChannels.create({
       channelId: 2,
       userId: 1
+    }),
+    UserChannels.create({
+      channelId: 2,
+      userId: 3
+    }),
+    UserChannels.create({
+      channelId: 1,
+      userId: 1
+    })
+  ])
+  const friends = await Promise.all([
+    Friends.create({
+      friendshipId: 3,
+      userId: 2
+    }),
+    Friends.create({
+      friendshipId: 4,
+      userId: 2
     })
   ])
 

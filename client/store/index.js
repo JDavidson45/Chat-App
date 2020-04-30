@@ -5,11 +5,15 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import messageReducer from './messages'
 import usersReducer from './users'
+import channelsReducer from './channel'
+import channelReducer from './singleChannel'
 
 const reducer = combineReducers({
   user,
   messages: messageReducer,
-  users: usersReducer
+  users: usersReducer,
+  channels: channelsReducer,
+  channel: channelReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
