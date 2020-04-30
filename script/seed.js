@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Channel, Message, UserChannels} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -10,6 +10,42 @@ async function seed() {
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
+  ])
+  const channel = await Promise.all([
+    Channel.create({
+      name: 'Introverts',
+      image:
+        'https://cdn.vox-cdn.com/thumbor/2q97YCXcLOlkoR2jKKEMQ-wkG9k=/0x0:900x500/1200x800/filters:focal(378x178:522x322)/cdn.vox-cdn.com/uploads/chorus_image/image/49493993/this-is-fine.0.jpg',
+      description: 'This quarantine is giving me a reason to stay home'
+    }),
+    Channel.create({
+      name: 'Extroverts',
+      image: 'https://i.chzbgr.com/full/9201176832/h04CD15A3/egg-meme-face',
+      description: '99th day no human contact'
+    })
+  ])
+
+  const message = await Promise.all([
+    Message.create({
+      content: 'Hey what is up ?!',
+      userId: 1,
+      channelId: 2
+    }),
+    Message.create({
+      content: 'It is a lovely day to stay inside',
+      userId: 2,
+      channelId: 1
+    })
+  ])
+  const userThroughChannels = await Promise.all([
+    UserChannels.create({
+      channelId: 1,
+      userId: 2
+    }),
+    UserChannels.create({
+      channelId: 2,
+      userId: 1
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
