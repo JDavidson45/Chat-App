@@ -7,10 +7,10 @@ module.exports = router
 
 router.get('/:channelId', async (req, res, next) => {
   try {
-    const messages = await Message.findAll(
-      {where: {channelId: req.params.channelId}},
-      {include: [Channel, User]}
-    )
+    const messages = await Message.findAll({
+      include: [Channel, User],
+      where: {channelId: req.params.channelId}
+    })
     res.json(messages)
   } catch (err) {
     next(err)

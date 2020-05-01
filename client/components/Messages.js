@@ -5,42 +5,41 @@ import {getMessagesThunk} from '../store/messages'
 class Messages extends React.Component {
   constructor() {
     super()
+    //this.currentTime = this.currentTime.bind(this)
   }
+  // currentTime(createdAt) {
+
+  // }
   render() {
-    console.log('message in render', this.props.message)
+    console.log('message in render', this.props.messages)
     return (
       <div>
         <h2>Chat Messages</h2>
         <div id="chatBox">
-          {/* {this.props.messages.map(message => {
-            return(
-            <div key={message.id} className={this.props.user === message.userId ?"container" : "container darker"}>
-            <img src={this.props.user.image} alt="Avatar" />
-            <p>{this.props.message.content}</p>
-            <span className="time-right">{this.props.message.createdAt}</span>
-          </div>)
-          })} */}
-          <div className="container">
-            <img
-              src="https://jennywilliamsonline.files.wordpress.com/2018/12/image-2-1.png?w=770"
-              alt="Avatar"
-            />
-            <p>Hello. How are you today?</p>
-            <span className="time-right">11:00</span>
+          {this.props.messages.map(message => {
+            return (
+              <div
+                key={message.id}
+                className={
+                  this.props.user.id === message.userId
+                    ? 'container'
+                    : 'container darker'
+                }
+              >
+                <img src={this.props.user.image} alt="Avatar" />
+                <h6>{message.user.name}</h6>
+                <p>{message.content}</p>
+                <span className="time-right">{message.createdAt}</span>
+              </div>
+            )
+          })}
+          <div>
+            <form>
+              <textarea id="chatForm" />
+              <br />
+              <button type="submit">Submit</button>
+            </form>
           </div>
-          <div className="container darker">
-            <img src={this.props.user.image} alt="Avatar" className="right" />
-            <p>{this.props.messages.content}</p>
-            <span className="time-left">11:01</span>
-          </div>
-        </div>
-
-        <div>
-          <form>
-            <textarea id="chatForm" />
-            <br />
-            <button type="submit">Submit</button>
-          </form>
         </div>
       </div>
     )

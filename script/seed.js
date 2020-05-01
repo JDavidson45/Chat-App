@@ -47,6 +47,11 @@ async function seed() {
       content: 'It is a lovely day to stay inside',
       userId: 2,
       channelId: 1
+    }),
+    Message.create({
+      content: 'I am never leaving the house again!',
+      userId: 3,
+      channelId: 1
     })
   ])
   const userThroughChannels = await Promise.all([

@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getChannelThunk} from '../store/singleChannel'
-import Users from './user-home'
+import Users from './Users'
 import ChatView from './ChatView'
+import Messages from './Messages'
 import {getMessagesThunk} from '../store/messages'
 
 /**
@@ -20,7 +21,10 @@ class ChannelView extends React.Component {
         <img src={this.props.channel.image} />
         <h1>{this.props.channel.name}</h1>
         <p>{this.props.channel.description}</p>
-        <ChatView />
+        <div>
+          <Users />
+          <Messages />
+        </div>
       </div>
     )
   }
