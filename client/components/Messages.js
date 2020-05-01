@@ -1,15 +1,30 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getMessagesThunk} from '../store/messages'
+import {getMessagesThunk, addMessagesThunk} from '../store/messages'
 class Messages extends React.Component {
   constructor() {
     super()
-    //this.currentTime = this.currentTime.bind(this)
+    this.state = {
+      content: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  // currentTime(createdAt) {
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+    console.log(event.target.name, event.target.value)
+  }
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.addMessages(this.state, this.props.channel.id)
+    this.setState({
+      content: ''
+    })
+  }
 
-  // }
   render() {
     console.log('message in render', this.props.messages)
     return (
@@ -27,15 +42,20 @@ class Messages extends React.Component {
                 }
               >
                 <img src={this.props.user.image} alt="Avatar" />
-                <h6>{message.user.name}</h6>
+                <h6>{message.user ? message.user.name : 'me'}</h6>
                 <p>{message.content}</p>
                 <span className="time-right">{message.createdAt}</span>
               </div>
             )
           })}
           <div>
-            <form>
-              <textarea id="chatForm" />
+            <form onSubmit={this.handleSubmit}>
+              <textarea
+                name="content"
+                value={this.state.content}
+                onChange={this.handleChange}
+                id="chatForm"
+              />
               <br />
               <button type="submit">Submit</button>
             </form>
@@ -57,10 +77,11 @@ const mapState = state => {
   }
 }
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     getMessages: (id) => dispatch(getMessagesThunk(id))
-//   }
-// }
+const mapDispatch = dispatch => {
+  return {
+    getMessages: id => dispatch(getMessagesThunk(id)),
+    addMessages: (message, id) => dispatch(addMessagesThunk(message, id))
+  }
+}
 
-export default connect(mapState)(Messages)
+export default connect(mapState, mapDispatch)(Messages)

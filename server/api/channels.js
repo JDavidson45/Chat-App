@@ -24,8 +24,21 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:channelId', async (req, res, next) => {
   try {
-    const channels = await Channel.findByPk(req.params.channelId)
+    const channels = await Channel.findByPk(req.params.channelId, {
+      include: [User]
+    })
     res.json(channels)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/:channelId', async (req, res, next) => {
+  try {
+    const message = await Message.create(req.body)
+    await message.setUser(req.user)
+    await message.setChannel(Number(req.params.channelId))
+    res.json(message)
   } catch (err) {
     next(err)
   }

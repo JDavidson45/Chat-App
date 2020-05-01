@@ -1,6 +1,6 @@
 import axios from 'axios'
 const GET_MESSAGES = 'GET_MESSAGES'
-const MESSAGE_RECIEVED = 'MESSAGE_RECIEVED'
+const ADD_MESSAGE = 'ADD_MESSAGE'
 
 let nextMessageId = 0
 
@@ -8,6 +8,12 @@ export const getMessages = messages => {
   return {
     type: GET_MESSAGES,
     messages
+  }
+}
+export const addMessage = message => {
+  return {
+    type: ADD_MESSAGE,
+    message
   }
 }
 export const getMessagesThunk = id => {
@@ -20,11 +26,15 @@ export const getMessagesThunk = id => {
     }
   }
 }
-export const messageRecieved = name => {
-  return {
-    type: MESSAGE_RECIEVED,
-    id: nextMessageId++,
-    name
+export const addMessagesThunk = (message, id) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post(`/api/channels/${id}`, message)
+      console.log('message in data', data)
+      dispatch(addMessage(data))
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -33,10 +43,8 @@ const messageReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_MESSAGES:
       return action.messages
-    case MESSAGE_RECIEVED:
-      return state.concat([
-        {message: action.message, author: action.author, id: action.id}
-      ])
+    case ADD_MESSAGE:
+      return [...state, action.message]
     default:
       return state
   }
