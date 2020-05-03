@@ -30,7 +30,7 @@ export const addMessagesThunk = (message, id) => {
   return async dispatch => {
     try {
       const {data} = await axios.post(`/api/channels/${id}`, message)
-      console.log('message in data', data)
+      console.log('message in data', data, id)
       dispatch(addMessage(data))
     } catch (err) {
       console.log(err)
@@ -42,7 +42,9 @@ const initialState = []
 const messageReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_MESSAGES:
-      return action.messages
+      return action.messages.sort(function(a, b) {
+        return a.id - b.id
+      })
     case ADD_MESSAGE:
       return [...state, action.message]
     default:
