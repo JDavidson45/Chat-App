@@ -38,7 +38,11 @@ router.post('/:channelId', async (req, res, next) => {
     const message = await Message.create(req.body)
     await message.setUser(req.user)
     await message.setChannel(Number(req.params.channelId))
-    res.json(message)
+    const newMessage = await Message.findOne({
+      include: [User, Channel],
+      where: {id: message.id}
+    })
+    res.json(newMessage)
   } catch (err) {
     next(err)
   }
