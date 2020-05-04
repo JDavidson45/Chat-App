@@ -11,7 +11,7 @@ export const getChannelThunk = id => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/channels/${id}`)
-      console.log('data!', data)
+      // console.log('data!', data)
       dispatch(getChannel(data))
     } catch (err) {
       console.log(err)

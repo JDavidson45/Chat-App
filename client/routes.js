@@ -8,6 +8,7 @@ import Profile from './components/Profile'
 import ChatView from './components/ChatView'
 import ChannelView from './components/ChannelView'
 import Messages from './components/Messages'
+import UserProfile from './components/UserProfile'
 /**
  * COMPONENT
  */
@@ -25,7 +26,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/channels/:channelId" component={ChannelView} />
-        {/* <Route exact path='/oogabooga' component={Messages} /> */}
+        <Route exact path="/users/:userId" component={UserProfile} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

@@ -18,3 +18,14 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const users = await User.findByPk(req.params.userId, {
+      include: Channel
+    })
+    res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})

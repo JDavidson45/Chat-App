@@ -5,6 +5,10 @@ import {Router} from 'react-router-dom'
 import history from './history'
 import store from './store'
 import App from './app'
+import socket from './socket'
+socket.on('connect', () => {
+  console.log('Connected to server')
+})
 
 // establishes socket connection
 import './socket'

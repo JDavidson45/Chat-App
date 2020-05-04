@@ -35,9 +35,10 @@ router.get('/:channelId', async (req, res, next) => {
 
 router.post('/:channelId', async (req, res, next) => {
   try {
-    const message = await Message.create(req.body)
+    const message = await Message.create(req.body, {include: [User, Channel]})
     await message.setUser(req.user)
     await message.setChannel(Number(req.params.channelId))
+    console.log('message api', message)
     const newMessage = await Message.findOne({
       include: [User, Channel],
       where: {id: message.id}

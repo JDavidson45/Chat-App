@@ -24,8 +24,9 @@ Channel.belongsToMany(User, {through: 'userChannels'})
 
 Channel.hasMany(Message)
 Message.belongsTo(Channel)
-
-User.belongsToMany(User, {as: 'friendship', through: Friends})
+User.hasMany(Friends)
+Friends.belongsTo(User)
+//User.belongsToMany(User, {as: 'friendship', through: Friends})
 module.exports = {
   User,
   Message,

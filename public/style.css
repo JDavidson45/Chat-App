@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: lightslategray;
 }
 
 a {
@@ -23,7 +24,7 @@ form div {
 #chatBox {
   border: solid purple;
   height: 1000px;
-  width: 1300px;
+  width: 1250px;
   overflow: scroll;
 }
 .container {
@@ -71,4 +72,29 @@ form div {
 #chatForm {
   margin: 10px;
   width: 500px;
+}
+.containerImg {
+  border: 2px solid magenta;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  width: 75px;
+  overflow: scroll;
+}
+.avatar {
+  width: 75px;
+}
+
+#users {
+  float: right;
+  /* position: top; */
+  position: absolute;
+  top: 200px;
+  right: 0;
+  overflow: scroll;
+}
+
+#subUsers {
+  border: black;
 }

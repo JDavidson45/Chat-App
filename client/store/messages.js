@@ -30,7 +30,7 @@ export const addMessagesThunk = (message, id) => {
   return async dispatch => {
     try {
       const {data} = await axios.post(`/api/channels/${id}`, message)
-      console.log('message in data', data)
+      console.log('message in data', data, id)
       dispatch(addMessage(data))
     } catch (err) {
       console.log(err)

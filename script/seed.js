@@ -14,14 +14,34 @@ async function seed() {
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({name: 'Cody', email: 'cody@email.com', password: '123'}),
-    User.create({name: 'Murphy', email: 'murphy@email.com', password: '123'}),
+    User.create({
+      name: 'Cody',
+      email: 'cody@email.com',
+      image:
+        'https://cdn.vox-cdn.com/thumbor/woc63zDP8HeSIy1l3bk5nc5DPkU=/0x0:500x375/1400x1400/filters:focal(158x110:238x190):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/59741997/n4scgse21iuz.0.jpg',
+      password: '123'
+    }),
+    User.create({
+      name: 'Murphy',
+      email: 'murphy@email.com',
+      image:
+        'https://lh3.googleusercontent.com/proxy/VavhyPK340qHaAGZKFPpLvK2IoCmLVPjlPXxWTsZ22On4Y4uhzdFNNZmY8w7--CCkZYsVpfDnydLaYfJOGqZnCdxqUSKBm6ymdQwTaclKSCzvfd2714FHZNCC-hUB_SWb5PsTnrB2wb6VFN29Cih4sAZ4sbJDlCci1M',
+      password: '123'
+    }),
     User.create({
       name: 'Bartholomew',
       email: 'bartholomew@email.com',
+      image:
+        'https://i.pinimg.com/originals/a7/82/a5/a782a5d5d57fa7a330b1bef3a624a99a.png',
       password: '123'
     }),
-    User.create({name: 'Bob', email: 'bob@email.com', password: '123'})
+    User.create({
+      name: 'Bob',
+      email: 'bob@email.com',
+      image:
+        'https://www.highlandernews.org/wp-content/uploads/2016/02/ops.meme_.nba_-1024x768.jpg',
+      password: '123'
+    })
   ])
   const channel = await Promise.all([
     Channel.create({
@@ -34,6 +54,12 @@ async function seed() {
       name: 'Extroverts',
       image: 'https://i.chzbgr.com/full/9201176832/h04CD15A3/egg-meme-face',
       description: '99th day no human contact'
+    }),
+    Channel.create({
+      name: 'AllFood',
+      image:
+        'https://image.shutterstock.com/image-photo/american-pizza-pepperoni-mozzarella-tomato-260nw-697347319.jpg',
+      description: 'If you want to get hungry come here !'
     })
   ])
 
@@ -70,16 +96,22 @@ async function seed() {
     UserChannels.create({
       channelId: 1,
       userId: 1
+    }),
+    UserChannels.create({
+      channelId: 3,
+      userId: 4
+    }),
+    UserChannels.create({
+      channelId: 3,
+      userId: 1
     })
   ])
   const friends = await Promise.all([
     Friends.create({
-      friendshipId: 3,
-      userId: 2
+      userId: 3
     }),
     Friends.create({
-      friendshipId: 4,
-      userId: 2
+      userId: 4
     })
   ])
 
